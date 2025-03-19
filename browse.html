@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Listings - Due Diligence</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { background: #f5f6f5; padding-top: 80px; }
+        nav { background: #1a2a44; padding: 15px 0; position: fixed; width: 100%; top: 0; }
+        nav ul { list-style: none; display: flex; justify-content: center; }
+        nav a { color: white; text-decoration: none; padding: 10px 20px; font-weight: bold; }
+        nav a:hover { color: #66b0ff; }
+        .listings { max-width: 1200px; margin: 40px auto; }
+        h2 { color: #1a2a44; text-align: center; margin-bottom: 20px; }
+        .filter { text-align: center; margin-bottom: 20px; }
+        .filter select { padding: 8px; border-radius: 5px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .listing { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .listing:hover { transform: translateY(-5px); }
+        .listing p { margin: 10px 0; }
+        .listing a { background: #66b0ff; color: white; padding: 10px 20px; display: inline-block; text-decoration: none; border-radius: 5px; }
+        .listing a:hover { background: #4682b4; }
+        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } .listings { margin: 20px; } }
+    </style>
+    <script>
+        function filterListings() {
+            let type = document.getElementById('typeFilter').value;
+            let listings = document.querySelectorAll('.listing');
+            listings.forEach(listing => {
+                let listingType = listing.dataset.type;
+                listing.style.display = (type === 'all' || type === listingType) ? 'block' : 'none';
+            });
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="list.html">List a Property</a></li>
+            <li><a href="#browse">Browse Listings</a></li>
+            <li><a href="broker.html">Broker Area</a></li>
+        </ul>
+    </nav>
+    <section class="listings">
+        <h2>Browse Listings</h2>
+        <div class="filter">
+            <select id="typeFilter" onchange="filterListings()">
+                <option value="all">All Types</option>
+                <option value="residential">Residential</option>
+                <option value="commercial">Commercial</option>
+            </select>
+        </div>
+        <div class="grid">
+            <div class="listing" data-type="residential">
+                <p><strong>Address:</strong> 12 Sea Rd, Cape Town</p>
+                <p><strong>Type:</strong> Residential</p>
+                <p><strong>Price:</strong> R1,900,000</p>
+                <a href="mailto:david@duediligence.co.za?subject=Inquiry: 12 Sea Rd">Contact</a>
+            </div>
+            <div class="listing" data-type="commercial">
+                <p><strong>Address:</strong> 45 Commerce St, Johannesburg</p>
+                <p><strong>Type:</strong> Commercial</p>
+                <p><strong>Price:</strong> R12,000/month</p>
+                <a href="mailto:david@duediligence.co.za?subject=Inquiry: 45 Commerce St">Contact</a>
+            </div>
+            <div class="listing" data-type="residential">
+                <p><strong>Address:</strong> 78 Pine Ave, Durban</p>
+                <p><strong>Type:</strong> Residential</p>
+                <p><strong>Price:</strong> R2,200,000</p>
+                <a href="mailto:david@duediligence.co.za?subject=Inquiry: 78 Pine Ave">Contact</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
