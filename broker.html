@@ -1,0 +1,108 @@
+Awesome! You’ve got the process down—creating files on your MacBook Air (Monterey) and uploading them to your GitHub repo at duediligence-sa/duediligence is now second nature. Since you’re ready to move faster, I’ll lay out all the remaining steps at once for your elite "Due Diligence" site. We’ve already got index.html (homepage) and list.html (listing form) live, and you’ve just added browse.html (listings grid). Now, I’ll give you the code and instructions for broker.html (broker dashboard), plus a bonus step to polish and manage the site. Follow these at your pace, and let me know how it goes or if you need tweaks!
+
+Full Steps to Complete Your Elite Due Diligence Site
+Step 1: Create and Upload broker.html (Broker Dashboard)
+Purpose: A sleek dashboard for brokers with a mock login and sortable table of listings.
+Code:
+html
+
+Preview
+
+Collapse
+
+Wrap
+
+Copy
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Broker Area - Due Diligence</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { background: #f5f6f5; padding-top: 80px; }
+        nav { background: #1a2a44; padding: 15px 0; position: fixed; width: 100%; top: 0; }
+        nav ul { list-style: none; display: flex; justify-content: center; }
+        nav a { color: white; text-decoration: none; padding: 10px 20px; font-weight: bold; }
+        nav a:hover { color: #66b0ff; }
+        .login, .dashboard { max-width: 800px; margin: 40px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h2 { color: #1a2a44; margin-bottom: 20px; text-align: center; }
+        .login input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
+        .login button { background: #66b0ff; color: white; padding: 12px; width: 100%; border: none; border-radius: 5px; cursor: pointer; }
+        .login button:hover { background: #4682b4; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+        th { background: #1a2a44; color: white; cursor: pointer; }
+        th:hover { background: #2c3e50; }
+        a { background: #66b0ff; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; }
+        a:hover { background: #4682b4; }
+        @media (max-width: 768px) { .login, .dashboard { margin: 20px; padding: 20px; } }
+    </style>
+    <script>
+        function sortTable(n) {
+            let table = document.getElementById("listingsTable"), rows, switching = true, i, shouldSwitch, dir = "asc", switchcount = 0;
+            while (switching) {
+                switching = false; rows = table.rows;
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    let x = rows[i].getElementsByTagName("TD")[n], y = rows[i + 1].getElementsByTagName("TD")[n];
+                    if (dir == "asc" && x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true; break;
+                    } else if (dir == "desc" && x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true; break;
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]); switching = true; switchcount++;
+                } else if (switchcount == 0 && dir == "asc") { dir = "desc"; switching = true; }
+            }
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="list.html">List a Property</a></li>
+            <li><a href="browse.html">Browse Listings</a></li>
+            <li><a href="#broker">Broker Area</a></li>
+        </ul>
+    </nav>
+    <div class="login">
+        <h2>Broker Login</h2>
+        <input type="text" placeholder="Username">
+        <input type="password" placeholder="Password">
+        <button onclick="document.querySelector('.login').style.display='none';document.querySelector('.dashboard').style.display='block';">Login</button>
+    </div>
+    <div class="dashboard" style="display:none;">
+        <h2>Your Listings</h2>
+        <table id="listingsTable">
+            <tr>
+                <th onclick="sortTable(0)">Address</th>
+                <th onclick="sortTable(1)">Type</th>
+                <th onclick="sortTable(2)">Status</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <td>12 Sea Rd, Cape Town</td>
+                <td>Residential</td>
+                <td>Available</td>
+                <td><a href="mailto:david@duediligence.co.za?subject=Update: 12 Sea Rd">Update</a></td>
+            </tr>
+            <tr>
+                <td>45 Commerce St, Johannesburg</td>
+                <td>Commercial</td>
+                <td>Pending</td>
+                <td><a href="mailto:david@duediligence.co.za?subject=Update: 45 Commerce St">Update</a></td>
+            </tr>
+            <tr>
+                <td>78 Pine Ave, Durban</td>
+                <td>Residential</td>
+                <td>Available</td>
+                <td><a href="mailto:david@duediligence.co.za?subject=Update: 78 Pine Ave">Update</a></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
